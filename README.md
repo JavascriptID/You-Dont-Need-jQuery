@@ -849,9 +849,7 @@ Most of utilities are found by native API. Others advanced functions could be ch
 
   // Native
   function isNumeric(value) {
-    var type = typeof value;
-
-    return (type === 'number' || type === 'string') && !Number.isNaN(value - Number.parseFloat(value));
+    return !isNaN(parseFloat(n)) && isFinite(n);
   }
   ```
 
@@ -1008,8 +1006,13 @@ Most of utilities are found by native API. Others advanced functions could be ch
     return [].concat(...args)
   }
 
-  // ES6-way
+  // ES6-way, doesn't remove duplicate items.
   array1 = [...array1, ...array2]
+
+  // Set version, can remove duplicate items
+  function merge(...args) {
+    return Array.from(new Set([].concat(...args)))
+  }
   ```
 
   + now
