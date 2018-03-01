@@ -40,7 +40,7 @@ In place of common selectors like class, id or attribute we can use `document.qu
 * `document.querySelectorAll` returns all matched elements as NodeList. It can be converted to Array using `Array.prototype.slice.call(document.querySelectorAll(selector));`
 * If there are no elements matched, jQuery and `document.querySelectorAll` will return `[]`, whereas `document.querySelector` will return `null`.
 
-> Notice: `document.querySelector` and `document.querySelectorAll` are quite **SLOW**, try to use `document.getElementById`, `document.getElementsByClassName` or `document.getElementsByTagName` if you want to get a performance bonus.
+> Notice: `document.querySelector` and `document.querySelectorAll` are quite **SLOW**, thus try to use `document.getElementById`, `document.getElementsByClassName` or `document.getElementsByTagName` if you want to get a performance bonus.
 
 - [1.0](#1.0) <a name='1.0'></a> Query by selector
 
@@ -142,7 +142,7 @@ In place of common selectors like class, id or attribute we can use `document.qu
 
 - [1.6](#1.6) <a name='1.6'></a> Closest
 
-  Return the first matched element by provided selector, traversing from current element to document.
+  Return the first matched element by provided selector, traversing from current element up through its ancestors in the DOM tree.
 
   ```js
   // jQuery
@@ -265,7 +265,7 @@ In place of common selectors like class, id or attribute we can use `document.qu
   + Set an attribute
 
     ```js
-    // jQuery, note that this works in memory without change the DOM
+    // jQuery
     $el.attr('foo', 'bar');
 
     // Native
@@ -597,7 +597,7 @@ In place of common selectors like class, id or attribute we can use `document.qu
   Return `true` if it matches the query selector
 
   ```js
-  // jQuery - Notice `is` also work with `function` or `elements` which is not concerned here
+  // jQuery - Notice `is` also works with a function, an existing jQuery object or a DOM element, which are not of concern here
   $el.is(selector);
 
   // Native
@@ -605,16 +605,15 @@ In place of common selectors like class, id or attribute we can use `document.qu
   ```
 - [3.9](#3.9) <a name='3.9'></a> clone
 
-  Create a deep copy of that element
+  Create a deep copy of an element: it copies the matched element as well as all of its descendant elements and text nodes.
 
   ```js
-  // jQuery
+  // jQuery. Sets parameter as `true` to indicate that event handlers should be copied along with the element.
   $el.clone();
 
   // Native
   el.cloneNode();
 
-  // For Deep clone , set param as `true`
   ```
 
 - [3.10](#3.10) <a name='3.10'></a> empty
@@ -795,7 +794,7 @@ For a complete replacement with namespace and delegation, refer to https://githu
 
 ## Utilities
 
-Most of utilities are found by native API. Others advanced functions could be chosen better utilities library focus on consistency and performance. Recommend [lodash](https://lodash.com) to replace.
+Most of jQuery utilities are also found in the native API. Other advanced functions could be chosen from better utilities libraries, focusing on consistency and performance. [Lodash](https://lodash.com) is a recommended replacement.
 
 - [6.1](#6.1) <a name='6.1'></a> Basic utilities
 
@@ -912,15 +911,15 @@ Most of utilities are found by native API. Others advanced functions could be ch
 
   + extend
 
-  Merge the contents of two or more objects together into the first object.
-  object.assign is ES6 API, and you could use [polyfill](https://github.com/ljharb/object.assign) also.
+  Merge the contents of two or more objects together into a new object, without modifying either argument.
+  object.assign is part of ES6 API, and you could also use a [polyfill](https://github.com/ljharb/object.assign).
 
   ```js
   // jQuery
-  $.extend({}, defaultOpts, opts);
+  $.extend({}, object1, object2);
 
   // Native
-  Object.assign({}, defaultOpts, opts);
+  Object.assign({}, object1, object2);
   ```
 
   + trim
@@ -1261,8 +1260,10 @@ A promise represents the eventual result of an asynchronous operation. jQuery ha
   el.style.transition = 'opacity 3s';
   // fadeIn
   el.style.opacity = '1';
+  el.style.display = ''|'inline'|'inline-block'|'inline-table'|'block';
   // fadeOut
   el.style.opacity = '0';
+  el.style.display = 'none';
   ```
 
 - [8.4](#8.4) <a name='8.4'></a> FadeTo
