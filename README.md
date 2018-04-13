@@ -37,7 +37,7 @@ Frontend environments evolve rapidly nowadays and modern browsers have already i
 
 In place of common selectors like class, id or attribute we can use `document.querySelector` or `document.querySelectorAll` for substitution. The differences lie in:
 * `document.querySelector` returns the first matched element
-* `document.querySelectorAll` returns all matched elements as NodeList. It can be converted to Array using `Array.prototype.slice.call(document.querySelectorAll(selector));`
+* `document.querySelectorAll` returns all matched elements as NodeList. It can be converted to Array using `Array.prototype.slice.call(document.querySelectorAll(selector));` or any of the methods outlined in [makeArray](#makeArray)
 * If there are no elements matched, jQuery and `document.querySelectorAll` will return `[]`, whereas `document.querySelector` will return `null`.
 
 > Notice: `document.querySelector` and `document.querySelectorAll` are quite **SLOW**, thus try to use `document.getElementById`, `document.getElementsByClassName` or `document.getElementsByTagName` if you want to get a performance bonus.
@@ -100,7 +100,7 @@ In place of common selectors like class, id or attribute we can use `document.qu
 
 - [1.5](#1.5) <a name='1.5'></a> Sibling/Previous/Next Elements
 
-  + All siblings 
+  + All siblings
 
     ```js
     // jQuery
@@ -129,7 +129,7 @@ In place of common selectors like class, id or attribute we can use `document.qu
     // Native
     el.previousElementSibling;
     ```
-   + Next sibling
+  + Next sibling
 
     ```js
     // jQuery
@@ -142,7 +142,7 @@ In place of common selectors like class, id or attribute we can use `document.qu
   + All previous siblings
 
     ```js
-    // jQuery (optional filter selector) 
+    // jQuery (optional filter selector)
     $el.prevAll($filter);
 
     // Native (optional filter function)
@@ -154,7 +154,7 @@ In place of common selectors like class, id or attribute we can use `document.qu
       }
       return sibs;
     }
-    
+
   + All next siblings
 
     ```js
@@ -170,8 +170,8 @@ In place of common selectors like class, id or attribute we can use `document.qu
           if (!filter || filter(elem)) sibs.push(elem);
       } while (elem = elem.nextSibling)
     return sibs;
-}
-    
+    }
+
 An example of filter function:
 
     function exampleFilter(elem) {
@@ -184,7 +184,7 @@ An example of filter function:
                 return false;
         }
     }
-    
+
 - [1.6](#1.6) <a name='1.6'></a> Closest
 
   Return the first matched element by provided selector, traversing from current element up through its ancestors in the DOM tree.
@@ -1100,7 +1100,7 @@ Most of jQuery utilities are also found in the native API. Other advanced functi
   fn.bind(context);
   ```
 
-  + makeArray
+  <a name="makeArray"></a>+ makeArray
 
   Convert an array-like object into a true JavaScript array.
 
@@ -1111,8 +1111,10 @@ Most of jQuery utilities are also found in the native API. Other advanced functi
   // Native
   Array.prototype.slice.call(arrayLike);
 
-  // ES6-way
+  // ES6-way: Array.from() method
   Array.from(arrayLike);
+
+  // ES6-way: spread operator
   [...arrayLike];
   ```
 
