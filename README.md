@@ -174,16 +174,18 @@ In place of common selectors like class, id or attribute we can use `document.qu
 
 An example of filter function:
 
-    function exampleFilter(elem) {
-        switch (elem.nodeName.toUpperCase()) {
-            case 'DIV':
-                return true;
-            case 'SPAN':
-                return true;
-            default:
-                return false;
-        }
-    }
+```js
+function exampleFilter(elem) {
+  switch (elem.nodeName.toUpperCase()) {
+    case 'DIV':
+      return true;
+    case 'SPAN':
+      return true;
+    default:
+      return false;
+  }
+}
+```
 
 - [1.6](#1.6) <a name='1.6'></a> Closest
 
@@ -593,27 +595,29 @@ An example of filter function:
   Append child element after the last child of parent element
 
   ```js
-  // jQuery
-  $el.append('<div id="container">Hello World</div>');
+  // jQuery: unified syntax for DOMString and Node objects
+  $parent.append(newEl | '<div id="container">Hello World</div>');
 
-  // Native (HTML string)
-  el.insertAdjacentHTML('beforeend', '<div id="container">Hello World</div>');
+  // Native: different syntax
+  parent.insertAdjacentHTML('beforeend', '<div id="container">Hello World</div>');
+  parent.appendChild(newEl);
 
-  // Native (Element)
-  el.appendChild(newEl);
+  // Native (ES6-way): unified syntax
+  parent.append(newEl | '<div id="container">Hello World</div>');
   ```
 
 - [3.5](#3.5) <a name='3.5'></a> Prepend
 
   ```js
-  // jQuery
-  $el.prepend('<div id="container">Hello World</div>');
+  // jQuery: unified syntax for DOMString and Node objects
+  $parent.prepend(newEl | '<div id="container">Hello World</div>');
 
-  // Native (HTML string)
-  el.insertAdjacentHTML('afterbegin', '<div id="container">Hello World</div>');
-
-  // Native (Element)
-  el.insertBefore(newEl, el.firstChild);
+  // Native: different syntax
+  parent.insertAdjacentHTML('afterbegin', '<div id="container">Hello World</div>');
+  parent.insertBefore(newEl, parent.firstChild);
+  
+  // Native (ES6-way): unified syntax
+  parent.prepend(newEl | '<div id="container">Hello World</div>');
   ```
 
 - [3.6](#3.6) <a name='3.6'></a> insertBefore
@@ -685,7 +689,7 @@ An example of filter function:
   $el.empty();
 
   // Native
-  el.innerHTML = '';
+  el.innerHTML = null;
   ```
 
 - [3.11](#3.11) <a name='3.11'></a> wrap
@@ -1058,19 +1062,18 @@ Most of jQuery utilities are also found in the native API. Other advanced functi
   Merge the contents of two arrays together into the first array.
 
   ```js
-  // jQuery
+  // jQuery, doesn't remove duplicate items
   $.merge(array1, array2);
 
-  // Native
-  // But concat function doesn't remove duplicate items.
+  // Native, doesn't remove duplicate items
   function merge(...args) {
     return [].concat(...args)
   }
 
-  // ES6-way, doesn't remove duplicate items.
+  // ES6-way, doesn't remove duplicate items
   array1 = [...array1, ...array2]
 
-  // Set version, can remove duplicate items
+  // Set version, does remove duplicate items
   function merge(...args) {
     return Array.from(new Set([].concat(...args)))
   }
@@ -1174,7 +1177,26 @@ Most of jQuery utilities are also found in the native API. Other advanced functi
     return context.body.children;
   }
   ```
-      
+- [6.5](#6.4) <a name='6.5'></a> exists
+
++ exists
+
+  Check if an element exists in the DOM 
+  
+  ```js
+  // jQuery
+  if ($('selector').length) {
+     // exists
+  }
+
+  // Native
+  var element =  document.getElementById('elementId');
+  if (typeof(element) != 'undefined' && element != null) 
+  {
+     // exists
+  }
+  ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Promises

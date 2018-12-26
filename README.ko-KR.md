@@ -325,8 +325,14 @@
     // jQuery
     $el.addClass(className);
 
-    // Native
+    // Native IE - 10+
     el.classList.add(className);
+    
+    // Native
+    if (el.classList)
+      el.classList.add(className);
+    else
+      el.className += ' ' + className;
     ```
 
   + class 제거하기
@@ -335,8 +341,14 @@
     // jQuery
     $el.removeClass(className);
 
-    // Native
+    // Native - IE 10+
     el.classList.remove(className);
+    
+    // Native
+    if (el.classList)
+      el.classList.remove(className);
+    else
+      el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
     ```
 
   + class를 포함하고 있는지 검사하기
@@ -549,7 +561,7 @@
   $newEl.insertBefore(selector);
 
   // Native (HTML 문자열)
-  el.insertAdjacentHTML('beforebegin ', '<div id="container">Hello World</div>');
+  el.insertAdjacentHTML('beforebegin', '<div id="container">Hello World</div>');
 
   // Native (엘리먼트)
   const el = document.querySelector(selector);
@@ -610,7 +622,7 @@
   $el.empty();
 
   // Native
-  el.innerHTML = '';
+  el.innerHTML = null;
   ```
 
 - [3.11](#3.11) <a name='3.11'></a> wrap
